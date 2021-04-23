@@ -21,6 +21,11 @@ class BudgetList:
     def __len__(self):
         return self.expenses.__len__() + self.overages.__len__()
 
+    def __iter__(self):
+        self.iter_e = iter(self.expenses)
+        self.iter_o = iter(self.overages)
+        return self
+
 
 def main():
     myBudgetList = BudgetList(1200)
@@ -29,6 +34,8 @@ def main():
     for expense in expenses.list:
         myBudgetList.append(expense.amount)
     print('The count of all expenses: ' + str(len(myBudgetList)))
+
+
 
 if __name__ == "__main__":
     main()
