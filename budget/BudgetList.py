@@ -1,3 +1,6 @@
+from budget import Expense
+
+
 class BudgetList:
 
     def __init__(self,budget):
@@ -15,4 +18,9 @@ class BudgetList:
             self.overages.append(item)
             self.sum_overages += item
 
+    def __len__(self):
+        return self.expenses.__len__() + self.overages.__len__()
 
+
+def main():
+    myBudgetList = BudgetList(1200)
