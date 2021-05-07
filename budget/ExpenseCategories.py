@@ -1,27 +1,42 @@
 from budget import Expense
-import timeit
 import matplotlib.pyplot as plt
+import timeit
 
 def main():
     expenses = Expense.Expenses()
     expenses.read_expenses('../data/spending_data.csv')
     divided_for_loop = expenses.categorize_for_loop()
     divided_set_comp = expenses.categorize_set_comprehension()
+
     if divided_for_loop != divided_set_comp:
         print('Sets are NOT equal by == test')
+
     for a,b in zip(divided_for_loop, divided_set_comp):
         if not (a.issubset(b) or b.issubset(a)):
             print('Sets are NOT equal by subset test')
-    print(timeit.timeit(stmt = "expenses.categorize_for_loop", setup = '''
+
+    print(timeit.timeit(stmt = "expenses.categorize_for_loop()",
+    setup =
+    '''
 from budget import Expense
 expenses = Expense.Expenses()
 expenses.read_expenses('../data/spending_data.csv')
-''', number=10000, globals=globals()))
-    print(timeit.timeit(stmt = "expenses.categorize_set_comprehension", setup = '''
+    ''',
+    number=100000,
+    globals=globals()
+    ))
+
+    print(timeit.timeit(stmt = "expenses.categorize_set_comprehension()",
+    setup =
+    '''
 from budget import Expense
 expenses = Expense.Expenses()
 expenses.read_expenses('../data/spending_data.csv')
-''', number=10000, globals=globals()))
+    ''',
+    number=100000,
+    globals=globals())
+    )
+
     fig,ax=plt.subplots()
     labels = ['Necessary', 'Food', 'Unnecessary']
     divided_expenses_sum = []
